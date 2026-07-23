@@ -1,27 +1,36 @@
-import ContactItem from './ContactItem';
-
-function ContactList({ contacts, loading, onEdit, onDelete, search, onSearchChange }) {
+function ContactList({ contacts, loading, onView, onEdit, onDelete }) {
   return (
-    <div className="contact-list">
-      <div className="list-header">
-        <h2>Contacts ({contacts.length})</h2>
-        <input
-          type="text"
-          placeholder="Search by name or email..."
-          value={search}
-          onChange={(e) => onSearchChange(e.target.value)}
-        />
-      </div>
+    <div className="contact-list-container">
+      {loading && <div className="empty-state">Loading your network...</div>}
 
-      {loading && <p>Loading contacts...</p>}
+      {!loading && contacts.length === 0 && (
+        <div className="empty-state">
+          <p>No contacts found. Click the plus button below to add one.</p>
+        </div>
+      )}
 
-      {!loading && contacts.length === 0 && <p className="empty-state">No contacts found. Add one to get started!</p>}
-
-      <div className="contact-grid">
-        {contacts.map((contact) => (
-          <ContactItem key={contact._id} contact={contact} onEdit={onEdit} onDelete={onDelete} />
-        ))}
-      </div>
+      {contacts.map((contact) => {
+        const initial = contact.name ? contact.name.charAt(0).toUpperCase() : '?';
+        return (
+          <div key={contact._id} className="contact-item-row" onClick={() => onView(contact)}>
+            <div className="contact-info-left">
+              <div className="contact-avatar">{initial}</div>
+              <div className="contact-details">
+                <h3>{contact.name}</h3>
+              </div>
+            </div>
+            
+            <div className="contact-item-actions" onClick={(e) => e.stopPropagation()}>
+              <button className="text-action-btn" onClick={() => onEdit(contact)}>
+                Edit
+              </button>
+              <button className="text-action-btn delete" onClick={() => onDelete(contact)}>
+                Delete
+              </button>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const emptyForm = { name: '', email: '', phone: '', address: '' };
 
-function ContactForm({ onSave, editingContact, onCancelEdit }) {
+function ContactForm({ onSave, editingContact, onCancel }) {
   const [formData, setFormData] = useState(emptyForm);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
@@ -27,10 +27,10 @@ function ContactForm({ onSave, editingContact, onCancelEdit }) {
       newErrors.name = 'Name must be at least 2 characters';
     }
     if (!/^\S+@\S+\.\S+$/.test(formData.email.trim())) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = 'Valid email required';
     }
     if (!/^[0-9+\-\s()]{7,20}$/.test(formData.phone.trim())) {
-      newErrors.phone = 'Please enter a valid phone number';
+      newErrors.phone = 'Valid phone required';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -46,54 +46,46 @@ function ContactForm({ onSave, editingContact, onCancelEdit }) {
     setSubmitting(true);
     try {
       await onSave(formData, editingContact?._id);
-      setFormData(emptyForm);
-      setErrors({});
     } catch (err) {
       setErrors({ form: err.message });
-    } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <form className="contact-form" onSubmit={handleSubmit}>
-      <h2>{editingContact ? 'Edit Contact' : 'Add New Contact'}</h2>
-
-      {errors.form && <p className="error-banner">{errors.form}</p>}
+    <form onSubmit={handleSubmit}>
+      {errors.form && <div className="global-error">{errors.form}</div>}
 
       <div className="form-group">
         <label htmlFor="name">Name</label>
         <input id="name" name="name" value={formData.name} onChange={handleChange} placeholder="John Doe" />
-        {errors.name && <span className="field-error">{errors.name}</span>}
+        {errors.name && <div style={{ color: 'var(--danger)', fontSize: '0.8rem', marginTop: '4px' }}>{errors.name}</div>}
       </div>
 
       <div className="form-group">
         <label htmlFor="email">Email</label>
         <input id="email" name="email" value={formData.email} onChange={handleChange} placeholder="john@example.com" />
-        {errors.email && <span className="field-error">{errors.email}</span>}
+        {errors.email && <div style={{ color: 'var(--danger)', fontSize: '0.8rem', marginTop: '4px' }}>{errors.email}</div>}
       </div>
 
       <div className="form-group">
         <label htmlFor="phone">Phone</label>
-        <input id="phone" name="phone" value={formData.phone} onChange={handleChange} placeholder="+92 300 1234567" />
-        {errors.phone && <span className="field-error">{errors.phone}</span>}
+        <input id="phone" name="phone" value={formData.phone} onChange={handleChange} placeholder="+1 234 567 890" />
+        {errors.phone && <div style={{ color: 'var(--danger)', fontSize: '0.8rem', marginTop: '4px' }}>{errors.phone}</div>}
       </div>
 
       <div className="form-group">
-        <label htmlFor="address">Address</label>
-        <textarea id="address" name="address" value={formData.address} onChange={handleChange} placeholder="Optional" />
-        {errors.address && <span className="field-error">{errors.address}</span>}
+        <label htmlFor="address">Address (Optional)</label>
+        <textarea id="address" name="address" value={formData.address} onChange={handleChange} placeholder="Street, City" />
       </div>
 
-      <div className="form-actions">
-        <button type="submit" disabled={submitting}>
-          {submitting ? 'Saving...' : editingContact ? 'Update Contact' : 'Add Contact'}
+      <div className="modal-actions">
+        <button type="button" className="btn btn-secondary" onClick={onCancel}>
+          Cancel
         </button>
-        {editingContact && (
-          <button type="button" className="btn-secondary" onClick={onCancelEdit}>
-            Cancel
-          </button>
-        )}
+        <button type="submit" className="btn btn-primary" disabled={submitting}>
+          {submitting ? 'Saving...' : 'Save Contact'}
+        </button>
       </div>
     </form>
   );
