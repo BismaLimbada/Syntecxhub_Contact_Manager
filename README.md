@@ -1,93 +1,64 @@
-# 📇 Contact Manager
+# Contact Management Application
 
-A modern, responsive full-stack Contact Manager application built with the MERN stack. It provides a clean interface for users to effortlessly organize and manage their contacts.
-
----
-
-## ✨ Features
-
-- Add, edit, and delete contacts
-- Real-time search by name or email
-- Built-in form validation
-- Fully responsive user interface
-- REST API integration
+A modern, minimalist contact management web application built with React, featuring an immersive dark purplish theme, a streamlined list-first layout, and smooth modal workflows.
 
 ---
 
-## 🛠️ Tech Stack
+## Features
 
-**Frontend:**
-- React
-- Vite
-- Axios
-- CSS
+* **Minimalist Contact List:** Displays a clean view showing only the contact's name and an auto-generated first-letter avatar icon.
+* **Dedicated Details View:** Clicking any contact row opens a polished detail modal to view full contact information (email, phone, and address) without cluttering the main list.
+* **Floating Action Button (FAB):** A prominent, accessible `+` button in the bottom-right corner for quick contact creation.
+* **Custom Modals:** Elegant overlay popups for creating, editing, viewing, and confirming deletions—completely replacing harsh browser alerts.
+* **Instant Search:** Real-time search filtering to quickly find contacts within your network.
+* **Dark Purplish Theme:** A high-end visual design featuring deep midnight violet, plum tones, and sleek accent highlights.
 
-**Backend:**
-- Node.js & Express.js
-- MongoDB & Mongoose
-- Express Validator
+---
+
+## Tech Stack
+
+* **Front-End:** React (Hooks, Component Architecture)
+* **Styling:** Custom CSS Design System (CSS Variables, Flexbox, Keyframe Animations)
+* **Icons & Typography:** Plus Jakarta Sans typography with clean text-action buttons and text-based avatars
+
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-Ensure you have Node.js and Git installed on your machine.
 
-### Installation
+Make sure you have Node.js and npm installed on your machine.
 
-1. **Clone the repository**
-   ```bash
-   git clone [https://github.com/yourusername/contact-manager.git](https://github.com/yourusername/contact-manager.git)
-   cd contact-manager
+### Installation & Running Locally
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd <project-directory>
 
 ```
 
-2. **Setup the Backend**
+
+2. Install dependencies:
 ```bash
-cd backend
 npm install
+
+```
+
+
+3. Run the development server:
+```bash
 npm run dev
 
 ```
 
 
-3. **Setup the Frontend**
-```bash
-cd frontend
-npm install
-npm run dev
-
-```
-
-
-
----
-
-## 📡 API Endpoints
-
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| `GET` | `/api/contacts` | Get all contacts |
-| `GET` | `/api/contacts/:id` | Get specific contact |
-| `POST` | `/api/contacts` | Create new contact |
-| `PUT` | `/api/contacts/:id` | Update contact |
-| `DELETE` | `/api/contacts/:id` | Delete contact |
-
----
-
-## 🗺️ Future Improvements
-
-* User Authentication
-* Contact Categories
-* Profile Pictures
-* Dark Mode
-* Favorites
-* Export Contacts
-
+4. Open your browser and navigate to the local development URL provided by Vite (typically `http://localhost:5173`).
 ---
 
 ## 📜 License
 
 Created as part of the SyntecxHub Internship Program.
 
+```
