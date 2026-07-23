@@ -60,5 +60,3 @@ npm run dev
 ## 📜 License
 
 Created as part of the SyntecxHub Internship Program.
-
-```
